@@ -5,6 +5,7 @@
 		releases = document.querySelector('select[name=releases]'),
 		list = document.querySelector('textarea[name=list]'),
 		src = document.querySelector('input[name=src]'),
+                backports = document.querySelector('input[name=backports]'),
 		contrib = document.querySelector('input[name=contrib]'),
 		nonfree = document.querySelector('input[name=non-free]'),
 		security = document.querySelector('input[name=security]');
@@ -12,7 +13,8 @@
 	var sourceList = [];
 
 	var getComponents = function() {
-		var components = ['main'];
+
+                var components = ['main'];
 
 		if(contrib.checked) components.push('contrib');
 		if(nonfree.checked) components.push('non-free');
@@ -39,6 +41,7 @@
 		appendSource(['deb', arch, ftp, rel, comps]);
 		if(src.checked) appendSource(['deb-src', arch, ftp, rel, comps]);
 
+
 		if(releases.options[releases.selectedIndex].hasAttribute('data-updates')) {
 			appendSource(['']);
 			appendSource(['deb', arch, ftp, rel + '-updates', comps]);
@@ -50,6 +53,17 @@
 			appendSource(['deb', arch, 'http://security.debian.org/', rel + '/updates', comps]);
 			if(src.checked) appendSource(['deb-src', arch, 'http://security.debian.org/', rel + '/updates', comps]);
 		}
+
+		// When the backports are checked, excepting testing and unstable we add new lines to the output (den and deb-src).
+                if(backports.checked && rel != 'sid' && rel != 'bookworm') {
+                        appendSource(['']);
+			appendSource(['# Backports brings newer software to stable releases.']);
+			appendSource(['# Backports are disabled by default and are installed differently.']);
+			appendSource(['# For instructions check https://backports.debian.org/Instructions/ .']);
+                        appendSource(['deb', arch, ftp, rel + '-backports', comps]);
+                        if(src.checked) appendSource(['deb-src', arch, ftp, rel + '-backports', comps]);
+                }
+
 
 		list.value = sourceList.join("\n");
 		sourceList = [];
