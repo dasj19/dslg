@@ -3,7 +3,7 @@
 		mirror = document.querySelector('select[name=mirror]'),
 		arch = document.querySelector('select[name=arch]'),
 		releases = document.querySelector('select[name=releases]'),
-		list = document.querySelector('textarea[name=list]'),
+		list = document.querySelector('code[name=list]'),
 		src = document.querySelector('input[name=src]'),
 		backports = document.querySelector('input[name=backports]'),
 		contrib = document.querySelector('input[name=contrib]'),
@@ -72,7 +72,7 @@
 		}
 
 		// Populate the textarea with the sources separated by a line break.
-		list.value = sourceList.join("\n");
+		list.innerHTML = sourceList.join("\n");
 		sourceList = [];
 	};
 
