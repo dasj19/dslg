@@ -54,12 +54,12 @@ select {
 	color: #222;
 }
 
-textarea {
+code {
 	display: block;
 	width: 100%;
 	font-family: 'Source Code Pro', monospace;
 	font-size: inherit;
-	color: #222;
+	color: darkgrey;
 	background: #f5f5f5;
 	border: none;
 	padding: 1rem;
@@ -77,4 +77,28 @@ button {
 	font-size: 110%;
 	cursor: pointer;
 	border-radius: 3px;
+}
+
+span[data-comment] {
+	color: green;
+}
+
+span[data-distro] {
+	color: red;
+}
+
+span[data-components] {
+	color: magenta;
+}
+
+span[data-uri] {
+	color: blue;
+}
+
+span[data-arch] {
+	color: violet;
+}
+
+span[data-type] {
+	color: cyan;
 }

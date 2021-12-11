@@ -19,7 +19,7 @@
 		if(contrib.checked) components.push('contrib');
 		if(nonfree.checked) components.push('non-free');
 
-		return components.join(' ');
+		return '<span data-components>' + components.join(' ') + '</span>';
 	};
 
 	var getArch = function() {
@@ -28,7 +28,24 @@
 	};
 
 	var appendSource = function(source) {
-		sourceList.push(source.filter(function(element) { return element.length; }).join(' '));
+		var result = '';
+		// Handle one element cases (comments).
+		if (source.length == 1) {
+			result = '<span data-comment>' + source[0] + '</span>';
+		}
+		// Process the actual apt lines.
+		else if (source.length == 5) {
+			result = ((source[0].length > 0) ? '<span data-type>' + source[0] + '</span>' + ' ' : '')
+				+ ((source[1].length > 0) ? '<span data-arch>' + source[1] + '</span>' + ' ' : '')
+				+ ((source[2].length > 0) ? '<span data-uri>' + source[2] + '</span>' + ' ' : '')
+				+ ((source[3].length > 0) ? '<span data-distro>' + source[3] + '</span>' + ' ' : '')
+				+ ((source[4].length > 0) ? '<span data-components>' + source[4] + '</span>' : '');
+		}
+		// All the other cases are not transformed int markup.
+		else {
+			result = source.join(' ');
+		}
+		sourceList.push(result);
 	};
 
 	var generate = function() {
@@ -71,8 +88,9 @@
 			if(src.checked) appendSource(['deb-src', arch, url, dist + '-backports', comps]);
 		}
 
-		// Populate the textarea with the sources separated by a line break.
-		list.innerHTML = sourceList.join("\n");
+		// Populate the code area with the sources separated by a line break.
+		text = sourceList.join("\n");
+		list.innerHTML = text;
 		sourceList = [];
 	};
 
