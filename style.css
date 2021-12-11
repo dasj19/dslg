@@ -80,7 +80,7 @@ button {
 }
 
 span[data-comment] {
-	color: green;
+	color: blue;
 }
 
 span[data-distro] {
@@ -92,13 +92,13 @@ span[data-components] {
 }
 
 span[data-uri] {
-	color: blue;
+	color: green;
 }
 
 span[data-arch] {
-	color: violet;
+	color: cyan;
 }
 
 span[data-type] {
-	color: cyan;
+	color: orange;
 }
