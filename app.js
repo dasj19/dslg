@@ -38,24 +38,31 @@
 		var comps = getComponents();
 		var arch = getArch();
 
+		// The main repository.
+		appendSource(['# Releases of the main packages.']);
 		appendSource(['deb', arch, url, dist, comps]);
 		if(src.checked) appendSource(['deb-src', arch, url, dist, comps]);
 
-
+		// Updates releases do not apply to unstable (index 0).
 		if(releases.options[releases.selectedIndex].hasAttribute('data-updates')) {
 			appendSource(['']);
+			appendSource(['# Updates that cannot wait for the next point release.']);
 			appendSource(['deb', arch, url, dist + '-updates', comps]);
 			if(src.checked) appendSource(['deb-src', arch, url, dist + '-updates', comps]);
 		}
 
-		if(security.checked) {
+		// Security releases do not apply to unstable (index 0).
+		if(security.checked && releases.selectedIndex != 0) {
 			appendSource(['']);
+			appendSource(['# Security releases from the Debian Security Audit Team.']);
 			appendSource(['deb', arch, 'http://security.debian.org/', dist + '/updates', comps]);
 			if(src.checked) appendSource(['deb-src', arch, 'http://security.debian.org/', dist + '/updates', comps]);
 		}
 
-		// When the backports are checked, excepting testing and unstable we add new lines to the output (den and deb-src).
-		if(backports.checked && dist != 'sid' && dist != 'bookworm') {
+		// When the backports are checked, excepting testing and unstable
+		// we add new lines to the output (deb and deb-src).
+		// Index 0 belongs to unstable and index 1 belongs to testing.
+		if(backports.checked && releases.selectedIndex != 0 && releases.selectedIndex != 1) {
 			appendSource(['']);
 			appendSource(['# Backports brings newer software to stable releases.']);
 			appendSource(['# Backports are disabled by default and are installed differently.']);
@@ -64,11 +71,12 @@
 			if(src.checked) appendSource(['deb-src', arch, url, dist + '-backports', comps]);
 		}
 
-
+		// Populate the textarea with the sources separated by a line break.
 		list.value = sourceList.join("\n");
 		sourceList = [];
 	};
 
 	button.addEventListener('click', generate, false);
+	// Generate the list with the default values.
 	generate();
 })();
