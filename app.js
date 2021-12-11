@@ -44,7 +44,7 @@
 		if(src.checked) appendSource(['deb-src', arch, url, dist, comps]);
 
 		// Updates releases do not apply to unstable (index 0).
-		if(releases.options[releases.selectedIndex].hasAttribute('data-updates')) {
+		if(releases.selectedIndex != 0) {
 			appendSource(['']);
 			appendSource(['# Updates that cannot wait for the next point release.']);
 			appendSource(['deb', arch, url, dist + '-updates', comps]);
