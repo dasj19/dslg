@@ -72,8 +72,8 @@
 		if(security.checked && releases.selectedIndex != 0) {
 			appendSource(['']);
 			appendSource(['# Security releases from the Debian Security Audit Team.']);
-			appendSource(['deb', arch, 'http://security.debian.org/', dist + '/updates', comps]);
-			if(src.checked) appendSource(['deb-src', arch, 'http://security.debian.org/', dist + '/updates', comps]);
+			appendSource(['deb', arch, 'http://security.debian.org/debian-security', dist + '-security', comps]);
+			if(src.checked) appendSource(['deb-src', arch, 'http://security.debian.org/debian-security', dist + '-security', comps]);
 		}
 
 		// When the backports are checked, excepting testing and unstable
