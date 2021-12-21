@@ -1,3 +1,4 @@
+<?php ?>
 <!doctype html>
 <html>
 	<head>
@@ -126,7 +127,8 @@
 
 		<div class="wrap wrap--footer"></div>
 
-		<script src="app.js"></script>
+		<script nonce="<?php $_SERVER['CSP_NONCE'] ?>" src="app.js"></script>
 
 	</body>
 </html>
+<?php ?>
