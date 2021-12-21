@@ -127,7 +127,7 @@
 
 		<div class="wrap wrap--footer"></div>
 
-		<script nonce="<?php $_SERVER['CSP_NONCE'] ?>" src="app.js"></script>
+		<script nonce="<?php print $_SERVER['CSP_NONCE'] ?>" src="app.js"></script>
 
 	</body>
 </html>
